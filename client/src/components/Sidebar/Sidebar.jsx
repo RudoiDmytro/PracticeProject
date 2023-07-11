@@ -56,11 +56,16 @@ const Sidebar = () => {
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Домашня сторінка</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<BarChartOutlined />}>
-          <Link to="/charts">Графіки</Link>
-        </Menu.Item>
+        <Menu.SubMenu key="2" icon={<BarChartOutlined />} title="Графіки">
+          <Menu.Item key="2.1">
+            <Link to="/charts/barIncome">Доходи</Link>
+          </Menu.Item>
+          <Menu.Item key="2.2">
+            <Link to="/charts/dougnatIncome">Доходи 2</Link>
+          </Menu.Item>
+        </Menu.SubMenu>
         <Menu.Item key="3" icon={<PieChartOutlined />}>
-          <Link to="/infographics">Інфографіка</Link>
+          <Link to="/analysis">Аналітика</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<LineChartOutlined />}>
           <Link to="/reports">Звіти</Link>

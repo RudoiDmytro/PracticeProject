@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-// import Charts from './Charts';
-// import Infographics from './Infographics';
+import BarChart from "./components/Charts/BarChart";
+import DoughnatChart from "./components/Charts/DoughnatChart";
+import EX from "./components/Analysis/EX";
 import Reports from "./components/Reports/Reports";
 import "./App.css";
 
@@ -21,8 +22,12 @@ const App = () => {
             <Content style={{ padding: "24px" }}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                {/* <Route path="/charts" element={<Charts />} />
-              <Route path="/infographics" element={<Infographics />} /> */}
+                <Route path="/charts/barIncome" element={<BarChart />} />
+                <Route
+                  path="/charts/dougnatIncome"
+                  element={<DoughnatChart />}
+                />
+                <Route path="/analysis" element={<EX />} />
                 <Route path="/reports" element={<Reports />} />
               </Routes>
             </Content>
