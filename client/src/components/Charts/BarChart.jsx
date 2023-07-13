@@ -1,48 +1,82 @@
-import { useEffect, useRef } from "react";
+/* eslint-disable react/prop-types */
+import { Tabs } from "antd";
 import Chart from "chart.js/auto";
 
-const BarChart = () => {
-  const chartRef = useRef(null);
+const { TabPane } = Tabs;
 
-  useEffect(() => {
-    const ctx = chartRef.current.getContext("2d");
+const BarChartTabs = ({ data }) => {
+  const renderBarCharts = () => {
+    return data.map((cityData, index) => {
+      const city = Object.keys(cityData)[0];
+      const yearData = cityData[city];
 
-    const data = {
-      labels: [
-        "Податкові надходження",
-        "Неподаткові надходження",
-        "Доходи від операцій з капіталом",
-        "Офіційні трансферти",
-        "Цільові фонди",
-      ],
-      datasets: [
-        {
-          label: "Розпис на рік з урахуванням змін",
-          data: [54813363018, 2174734600, 490625500, 15525895894, 260679400],
-          backgroundColor: "rgba(75, 192, 192, 0.5)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 1,
-        },
-        {
-          label: "Виконано",
-          data: [
-            57130808986.91, 4708038162.9, 239505387.18, 15396419271.45,
-            303053193.92,
-          ],
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: 1,
-        },
-      ],
-    };
-
-    new Chart(ctx, {
-      type: "bar",
-      data: data,
+      return (
+        <TabPane tab={city} key={index}>
+          <Tabs>{renderYearTabs(yearData)}</Tabs>
+        </TabPane>
+      );
     });
-  }, []);
+  };
 
-  return <canvas ref={chartRef} />;
+  const renderYearTabs = (yearData) => {
+    return yearData.map((yearObj, index) => {
+      const year = Object.keys(yearObj)[0];
+      const chartData = yearObj[year];
+      const labels = Object.keys(chartData[0]);
+
+      return (
+        <TabPane tab={year} key={index}>
+          <canvas ref={(ref) => createBarChart(ref, chartData, labels)} />
+        </TabPane>
+      );
+    });
+  };
+
+  const createBarChart = (ref, chartData, labels) => {
+    const planLabel = labels[1];
+
+    if (ref && ref instanceof HTMLCanvasElement) {
+      const ctx = ref.getContext("2d");
+      const labelsData = chartData.map(
+        (item) => item[labels[0]] || item[labels[1]]
+      );
+      const planData = chartData.map((item) => item[planLabel]);
+      const deviationData = chartData.map(
+        (item) => item["Відхилення."] || item["Виконано."]
+      );
+
+      const isKyivCity = chartData[0]["Виконано."];
+
+      const chartConfig = {
+        type: "line",
+        data: {
+          labels: labelsData,
+          datasets: [
+            {
+              label: planLabel,
+              data: planData,
+              backgroundColor: isKyivCity
+                ? "rgba(75, 192, 192, 0.5)"
+                : "rgb(102, 153, 255)",
+              borderColor: isKyivCity ? "rgba(75, 192, 192, 1)" : "",
+              borderWidth: 1,
+            },
+            {
+              label: labels[2],
+              data: deviationData,
+              backgroundColor: isKyivCity ? "" : "rgba(255, 99, 132, 0.5)",
+              borderColor: isKyivCity ? "" : "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+      };
+
+      new Chart(ctx, chartConfig);
+    }
+  };
+
+  return <Tabs>{renderBarCharts()}</Tabs>;
 };
 
-export default BarChart;
+export default BarChartTabs;

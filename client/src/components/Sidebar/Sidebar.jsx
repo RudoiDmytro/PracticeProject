@@ -49,19 +49,20 @@ const Sidebar = () => {
         }
       />
       <Menu
+
         mode="inline"
         defaultSelectedKeys={["1"]}
-        style={{ height: "100%", borderRight: 0, borderRadius: "10px" }}
+        style={{ height: "100vh", borderRight: 0, borderRadius: "10px" }}
       >
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Домашня сторінка</Link>
         </Menu.Item>
         <Menu.SubMenu key="2" icon={<BarChartOutlined />} title="Графіки">
           <Menu.Item key="2.1">
-            <Link to="/charts/barIncome">Доходи</Link>
+            <Link to="/charts/barIncome">Бюджети</Link>
           </Menu.Item>
           <Menu.Item key="2.2">
-            <Link to="/charts/dougnatIncome">Доходи 2</Link>
+            <Link to="/charts/dougnatIncome">Відсотки</Link>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="3" icon={<PieChartOutlined />}>

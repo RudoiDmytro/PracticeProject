@@ -1,14 +1,51 @@
-import { Typography } from 'antd';
+/* eslint-disable react/prop-types */
+import { Table, Tabs } from "antd";
 
-const { Title } = Typography;
+const { TabPane } = Tabs;
 
-const Reports = () => {
-  return (
-    <div>
-      <Title level={3}>Expenses Reports</Title>
-      <p>Reports about the expenses of the city.</p>
-    </div>
-  );
+const Reports = ({ data }) => {
+  if (!data || data.length === 0) {
+    return <div>No data available</div>;
+  }
+
+  const renderTabs = () => {
+    return data.map((cityData, index) => {
+      const city = Object.keys(cityData)[0];
+      const yearData = cityData[city];
+
+      return (
+        <TabPane tab={city} key={index}>
+          {renderTables(yearData)}
+        </TabPane>
+      );
+    });
+  };
+
+  const renderTables = (yearData) => {
+    return yearData.map((yearObj) => {
+      const year = Object.keys(yearObj)[0];
+      const tableData = yearObj[year];
+
+      // Extract the keys from the first object in the table data
+      const keys = Object.keys(tableData[0]);
+
+      // Generate the columns based on the keys
+      const columns = keys.map((key) => ({
+        title: key,
+        dataIndex: key,
+        key: key,
+      }));
+
+      return (
+        <div key={year}>
+          <h2>{year}</h2>
+          <Table columns={columns} dataSource={tableData} />
+        </div>
+      );
+    });
+  };
+
+  return <Tabs defaultActiveKey="0">{renderTabs()}</Tabs>;
 };
 
 export default Reports;

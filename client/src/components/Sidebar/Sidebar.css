@@ -1,8 +1,5 @@
 .sidebar {
   background: #fff;
-  flex: 0 0 200px;
-  max-width: 200px;
-  min-width: 200px;
   margin-left: 1%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }

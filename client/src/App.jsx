@@ -8,38 +8,51 @@ import DoughnatChart from "./components/Charts/DoughnatChart";
 import EX from "./components/Analysis/EX";
 import Reports from "./components/Reports/Reports";
 import "./App.css";
+import jsonData from "./data.json";
 
 const { Content, Footer } = Layout;
 
 const App = () => {
   return (
     <Router>
-      <Layout className="app">
-        <Header />
+      <Layout className="app" style={{ minHeight: "100vh" }}>
+        <Header
+          data={"Огляд виконання бюджетів територіальних громад"}
+          lvl={2}
+        />
         <Layout>
           <Sidebar />
-          <Layout>
-            <Content style={{ padding: "24px" }}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/charts/barIncome" element={<BarChart />} />
-                <Route
-                  path="/charts/dougnatIncome"
-                  element={<DoughnatChart />}
-                />
-                <Route path="/analysis" element={<EX />} />
-                <Route path="/reports" element={<Reports />} />
-              </Routes>
-            </Content>
-            <Footer
-              style={{
-                textAlign: "center",
-              }}
-            >
-              Розроблено ©2023
-            </Footer>
-          </Layout>
+
+          <Content
+            style={{
+              margin: "24px 16px",
+              padding: 24,
+              background: "#fff",
+              minHeight: "100vh",
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/charts/barIncome"
+                element={<BarChart data={jsonData} />}
+              />
+              <Route
+                path="/charts/dougnatIncome"
+                element={<DoughnatChart data={jsonData} />}
+              />
+              <Route path="/analysis" element={<EX />} />
+              <Route path="/reports" element={<Reports data={jsonData} />} />
+            </Routes>
+          </Content>
         </Layout>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Розроблено ©2023
+        </Footer>
       </Layout>
     </Router>
   );

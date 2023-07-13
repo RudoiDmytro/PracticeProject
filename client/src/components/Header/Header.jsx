@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import { Layout, Typography } from "antd";
 import "./Header.css"; // Import the CSS file
 
 const { Header: AntHeader } = Layout;
 const { Title } = Typography;
 
-const Header = () => {
+const Header = ({ data, lvl }) => {
   return (
     <AntHeader className="header">
-      <Title level={2} className="header-title">
-        Огляд виконання бюджету міста києва
+      <Title level={lvl} className="header-title">
+        {data}
       </Title>
     </AntHeader>
   );
