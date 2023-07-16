@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   HomeOutlined,
-  BarChartOutlined,
+  LineChartOutlined,
   PieChartOutlined,
   LineChartOutlined,
   MenuUnfoldOutlined,
@@ -57,7 +57,7 @@ const Sidebar = () => {
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Домашня сторінка</Link>
         </Menu.Item>
-        <Menu.SubMenu key="2" icon={<BarChartOutlined />} title="Графіки">
+        <Menu.SubMenu key="2" icon={<LineChartOutlined />} title="Графіки">
           <Menu.Item key="2.1">
             <Link to="/charts/barIncome">Бюджети</Link>
           </Menu.Item>

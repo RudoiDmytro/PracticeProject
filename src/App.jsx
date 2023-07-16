@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import BarChart from "./components/Charts/BarChart";
+import LineChart from "./components/Charts/LineChart";
 import DoughnatChart from "./components/Charts/DoughnatChart";
 import EX from "./components/Analysis/EX";
 import Reports from "./components/Reports/Reports";
@@ -35,7 +35,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route
                 path="/charts/barIncome"
-                element={<BarChart data={jsonData} />}
+                element={<LineChart data={jsonData} />}
               />
               <Route
                 path="/charts/dougnatIncome"

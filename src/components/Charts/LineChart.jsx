@@ -4,8 +4,8 @@ import Chart from "chart.js/auto";
 
 const { TabPane } = Tabs;
 
-const BarChartTabs = ({ data }) => {
-  const renderBarCharts = () => {
+const LineChartTabs = ({ data }) => {
+  const renderLineCharts = () => {
     return data.map((cityData, index) => {
       const city = Object.keys(cityData)[0];
       const yearData = cityData[city];
@@ -26,13 +26,13 @@ const BarChartTabs = ({ data }) => {
 
       return (
         <TabPane tab={year} key={index}>
-          <canvas ref={(ref) => createBarChart(ref, chartData, labels)} />
+          <canvas ref={(ref) => createLineChart(ref, chartData, labels)} />
         </TabPane>
       );
     });
   };
 
-  const createBarChart = (ref, chartData, labels) => {
+  const createLineChart = (ref, chartData, labels) => {
     const planLabel = labels[1];
 
     if (ref && ref instanceof HTMLCanvasElement) {
@@ -62,7 +62,7 @@ const BarChartTabs = ({ data }) => {
               borderWidth: 1,
             },
             {
-              label: labels[2],
+              label: isKyivCity ? labels[2] : labels[3],
               data: deviationData,
               backgroundColor: isKyivCity ? "" : "rgba(255, 99, 132, 0.5)",
               borderColor: isKyivCity ? "" : "rgba(255, 99, 132, 1)",
@@ -76,7 +76,7 @@ const BarChartTabs = ({ data }) => {
     }
   };
 
-  return <Tabs>{renderBarCharts()}</Tabs>;
+  return <Tabs>{renderLineCharts()}</Tabs>;
 };
 
-export default BarChartTabs;
+export default LineChartTabs;
