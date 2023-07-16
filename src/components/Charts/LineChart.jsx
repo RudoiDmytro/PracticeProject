@@ -56,10 +56,10 @@ const LineChartTabs = ({ data }) => {
               label: planLabel,
               data: planData,
               backgroundColor: isKyivCity
-                ? "rgba(75, 192, 192, 0.5)"
+                ? "rgba(100, 192, 255, 0.5)"
                 : "rgba(102, 153, 255,0.5)",
               borderColor: isKyivCity
-                ? "rgba(75, 192, 192, 1)"
+                ? "rgba(100, 192, 255, 1)"
                 : "rgba(102, 153, 255,1)",
               borderWidth: 1,
             },
