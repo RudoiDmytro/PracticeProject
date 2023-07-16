@@ -11,6 +11,7 @@ const DoughnatChartTabs = ({ data }) => {
     return yearData.map((yearObj, index) => {
       const year = Object.keys(yearObj)[0];
       const chartData = yearObj[year];
+      const labels = Object.keys(chartData[0]);
 
       return (
         <TabPane tab={year} key={index}>
@@ -20,27 +21,32 @@ const DoughnatChartTabs = ({ data }) => {
               alignItems: "baseline",
               justifyContent: "start",
               height: "100vh",
-              width: "100%"
+              width: "100%",
+              marginLeft: "20%",
             }}
           >
-            <canvas ref={(ref) => createDoughnatChart(ref, chartData)} />
+            <canvas
+              ref={(ref) => createDoughnatChart(ref, chartData, labels)}
+            />
           </div>
         </TabPane>
       );
     });
   };
 
-  const createDoughnatChart = (ref, chartData) => {
+  const createDoughnatChart = (ref, chartData, labels) => {
     if (ref && ref instanceof HTMLCanvasElement) {
       const ctx = ref.getContext("2d");
 
-      const labels = chartData.map((item) => item["Найменування надходжень"]);
-      const deviationData = chartData.map((item) => item["Виконано."]);
+      const labelsData = chartData.map((item) => item[labels[0]]);
+      const deviationData = chartData.map((item) =>
+        ((item[labels[1]] / item[labels[2]]) * 100).toFixed(2)
+      );
 
       const chartConfig = {
         type: "doughnut",
         data: {
-          labels: labels,
+          labels: labelsData,
           datasets: [
             {
               data: deviationData,
@@ -65,7 +71,7 @@ const DoughnatChartTabs = ({ data }) => {
         options: {
           plugins: {
             legend: {
-              position: "left",
+              position: "right",
             },
           },
         },
