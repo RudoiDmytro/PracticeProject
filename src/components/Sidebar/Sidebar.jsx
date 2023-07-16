@@ -6,7 +6,6 @@ import {
   HomeOutlined,
   LineChartOutlined,
   PieChartOutlined,
-  LineChartOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
@@ -55,21 +54,21 @@ const Sidebar = () => {
         style={{ height: "100vh", borderRight: 0, borderRadius: "10px" }}
       >
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link to="/">Домашня сторінка</Link>
+          <Link to="/PracticeProject">Домашня сторінка</Link>
         </Menu.Item>
         <Menu.SubMenu key="2" icon={<LineChartOutlined />} title="Графіки">
           <Menu.Item key="2.1">
-            <Link to="/charts/barIncome">Бюджети</Link>
+            <Link to="/PracticeProject/charts/barIncome">Бюджети</Link>
           </Menu.Item>
           <Menu.Item key="2.2">
-            <Link to="/charts/dougnatIncome">Відсотки</Link>
+            <Link to="/PracticeProject/charts/dougnatIncome">Відсотки</Link>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item key="3" icon={<PieChartOutlined />}>
-          <Link to="/analysis">Аналітика</Link>
+          <Link to="/PracticeProject/analysis">Аналітика</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<LineChartOutlined />}>
-          <Link to="/reports">Звіти</Link>
+          <Link to="/PracticeProject/reports">Звіти</Link>
         </Menu.Item>
       </Menu>
     </Sider>

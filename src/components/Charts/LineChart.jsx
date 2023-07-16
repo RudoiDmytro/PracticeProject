@@ -57,15 +57,21 @@ const LineChartTabs = ({ data }) => {
               data: planData,
               backgroundColor: isKyivCity
                 ? "rgba(75, 192, 192, 0.5)"
-                : "rgb(102, 153, 255)",
-              borderColor: isKyivCity ? "rgba(75, 192, 192, 1)" : "",
+                : "rgba(102, 153, 255,0.5)",
+              borderColor: isKyivCity
+                ? "rgba(75, 192, 192, 1)"
+                : "rgba(102, 153, 255,1)",
               borderWidth: 1,
             },
             {
               label: isKyivCity ? labels[2] : labels[3],
               data: deviationData,
-              backgroundColor: isKyivCity ? "" : "rgba(255, 99, 132, 0.5)",
-              borderColor: isKyivCity ? "" : "rgba(255, 99, 132, 1)",
+              backgroundColor: isKyivCity
+                ? "rgba(255, 153, 51,0.5)"
+                : "rgba(255, 99, 132, 0.5)",
+              borderColor: isKyivCity
+                ? "rgba(255, 153, 51,1)"
+                : "rgba(255, 99, 132, 1)",
               borderWidth: 1,
             },
           ],

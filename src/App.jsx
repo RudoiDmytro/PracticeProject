@@ -32,17 +32,17 @@ const App = () => {
             }}
           >
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/PracticeProject" element={<Home />} />
               <Route
-                path="/charts/barIncome"
+                path="/PracticeProject/charts/barIncome"
                 element={<LineChart data={jsonData} />}
               />
               <Route
-                path="/charts/dougnatIncome"
+                path="/PracticeProject/charts/dougnatIncome"
                 element={<DoughnatChart data={jsonData} />}
               />
-              <Route path="/analysis" element={<EX />} />
-              <Route path="/reports" element={<Reports data={jsonData} />} />
+              <Route path="/PracticeProject/analysis" element={<EX />} />
+              <Route path="/PracticeProject/reports" element={<Reports data={jsonData} />} />
             </Routes>
           </Content>
         </Layout>
