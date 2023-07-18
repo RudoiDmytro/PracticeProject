@@ -26,15 +26,15 @@ const DoughnatChartTabs = ({ data }) => {
                   alignItems: "center",
                 }}
               >
-                <Title level={2}>
+                <Title level={3}>
                   Виконано у % до річного уточнення у місті Києві
                 </Title>
                 <div
                   style={{
                     display: "flex",
                     height: "100vh",
-                    width: "100%",
-                    marginLeft: "40%",
+                    width: "100vh",
+                    marginLeft: "20%",
                   }}
                 >
                   <canvas

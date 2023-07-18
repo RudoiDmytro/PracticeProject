@@ -9,6 +9,7 @@ import EX from "./components/Analysis/EX";
 import Reports from "./components/Reports/Reports";
 import "./App.css";
 import jsonData from "./data.json";
+import Vik from "./components/Analysis/Vik";
 
 const { Content, Footer } = Layout;
 
@@ -21,7 +22,7 @@ const App = () => {
           lvl={2}
         />
         <Layout>
-          <Sidebar />
+          <Sidebar data={jsonData} />
 
           <Content
             style={{
@@ -34,15 +35,25 @@ const App = () => {
             <Routes>
               <Route path="/PracticeProject" element={<Home />} />
               <Route
-                path="/PracticeProject/charts/barIncome"
+                path="/PracticeProject/charts/lineIncome"
                 element={<LineChart data={jsonData} />}
               />
               <Route
                 path="/PracticeProject/charts/dougnatIncome"
                 element={<DoughnatChart data={jsonData} />}
               />
-              <Route path="/PracticeProject/analysis" element={<EX data={jsonData}/>} />
-              <Route path="/PracticeProject/reports" element={<Reports data={jsonData} />} />
+              <Route
+                path="/PracticeProject/analysis/years"
+                element={<EX data={jsonData} />}
+              />
+              <Route
+                path="/PracticeProject/analysis/deviation"
+                element={<Vik data={jsonData} />}
+              />
+              <Route
+                path="/PracticeProject/reports"
+                element={<Reports data={jsonData} />}
+              />
             </Routes>
           </Content>
         </Layout>

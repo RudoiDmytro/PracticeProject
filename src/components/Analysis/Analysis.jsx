@@ -18,6 +18,7 @@ const Analysis = ({ year, previousYearBudget, nextYearBudget }) => {
       title: "Бюджет",
       dataIndex: "budget",
       key: "budget",
+      render: (value) => value.toLocaleString(),
     },
   ];
 

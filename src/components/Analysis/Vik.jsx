@@ -5,18 +5,20 @@ import { Row, Col, Tabs, Typography } from "antd";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-const EX = ({ data }) => {
+const Vik = ({ data }) => {
   return (
     <div>
       <Tabs>
         {data.map((cityData, index) => {
           const city = Object.keys(cityData)[0];
           const yearData = cityData[city];
+          const isKyiv = city === "Київ";
+          const title = isKyiv ? "Виконано бюджету" : "Відхилення від бюджету";
 
           return (
             <TabPane tab={city} key={index}>
               <Title level={3} style={{ textAlign: "center" }}>
-                Різниця бюджетів
+                {title}
               </Title>
               <Row gutter={[16, 16]}>
                 {yearData.map((yearObj, yearIndex) => {
@@ -25,9 +27,7 @@ const EX = ({ data }) => {
 
                   const previousYearBudget = chartData.reduce((sum, item) => {
                     const budget = parseFloat(
-                      item["Розпис на рік з урахуванням змін."] ||
-                        item["План на рік з урахуванням змін."] ||
-                        0
+                      item[isKyiv ? "Виконано." : "Відхилення."] || 0
                     );
                     return sum + budget;
                   }, 0);
@@ -39,9 +39,7 @@ const EX = ({ data }) => {
                       nextYearObj[Object.keys(nextYearObj)[0]];
                     nextYearBudget = nextYearChartData.reduce((sum, item) => {
                       const budget = parseFloat(
-                        item["Розпис на рік з урахуванням змін."] ||
-                          item["План на рік з урахуванням змін."] ||
-                          0
+                        item[isKyiv ? "Виконано." : "Відхилення."] || 0
                       );
                       return sum + budget;
                     }, 0);
@@ -66,4 +64,4 @@ const EX = ({ data }) => {
   );
 };
 
-export default EX;
+export default Vik;
