@@ -2,11 +2,11 @@
 
 import { Table } from "antd";
 
-const Analysis = ({ currentYearRevenue, nextYearRevenue }) => {
-  // Calculate revenues for the next year
-  const budgetDifference = nextYearRevenue - currentYearRevenue;
-  const budgetChangePercentage =
-    ((nextYearRevenue - currentYearRevenue) / currentYearRevenue) * 100;
+const Analysis = ({ year, previousYearBudget, nextYearBudget }) => {
+  const budgetDifference = nextYearBudget - previousYearBudget;
+  const budgetChangePercentage = nextYearBudget
+    ? ((nextYearBudget - previousYearBudget) / previousYearBudget) * 100
+    : 0;
 
   const columns = [
     {
@@ -24,23 +24,25 @@ const Analysis = ({ currentYearRevenue, nextYearRevenue }) => {
   const data = [
     {
       key: "1",
-      year: "Поточний Рік",
-      budget: currentYearRevenue,
+      year: `Попередній Рік (${+year})`,
+      budget: previousYearBudget,
     },
     {
       key: "2",
-      year: "Наступний Рік",
-      budget: nextYearRevenue,
+      year: nextYearBudget
+        ? `Наступний Рік (${+year + 1})`
+        : "Наступний Рік (Недоступно)",
+      budget: nextYearBudget || "-",
     },
     {
       key: "3",
       year: "Різниця",
-      budget: budgetDifference,
+      budget: nextYearBudget ? budgetDifference : "-",
     },
     {
       key: "4",
       year: "Зміна (%)",
-      budget: `${budgetChangePercentage.toFixed(2)}%`,
+      budget: nextYearBudget ? `${budgetChangePercentage.toFixed(2)}%` : "-",
     },
   ];
 

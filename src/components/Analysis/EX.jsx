@@ -1,25 +1,63 @@
+/* eslint-disable react/prop-types */
 import Analysis from "./Analysis";
-import { Row, Col } from "antd";
+import { Row, Col, Tabs } from "antd";
 
-const EX = () => {
-  const currentYearBudget = 54813363018;
-  const nextYearBudget = 60367341645;
+const { TabPane } = Tabs;
+
+const EX = ({ data }) => {
   return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
-          <Analysis
-            currentYearRevenue={currentYearBudget}
-            nextYearRevenue={nextYearBudget}
-          />
-        </Col>
-        <Col span={12}>
-          <Analysis
-            currentYearRevenue={currentYearBudget}
-            nextYearRevenue={nextYearBudget}
-          />
-        </Col>
-      </Row>
+      <Tabs>
+        {data.map((cityData, index) => {
+          const city = Object.keys(cityData)[0];
+          const yearData = cityData[city];
+
+          return (
+            <TabPane tab={city} key={index}>
+              <Row gutter={[16, 16]}>
+                {yearData.map((yearObj, yearIndex) => {
+                  const year = Object.keys(yearObj)[0];
+                  const chartData = yearObj[year];
+
+                  const previousYearBudget = chartData.reduce((sum, item) => {
+                    const budget = parseFloat(
+                      item["Розпис на рік з урахуванням змін."] ||
+                        item["План на рік з урахуванням змін."] ||
+                        0
+                    );
+                    return sum + budget;
+                  }, 0);
+
+                  let nextYearBudget = 0;
+                  if (yearIndex < yearData.length - 1) {
+                    const nextYearObj = yearData[yearIndex + 1];
+                    const nextYearChartData =
+                      nextYearObj[Object.keys(nextYearObj)[0]];
+                    nextYearBudget = nextYearChartData.reduce((sum, item) => {
+                      const budget = parseFloat(
+                        item["Розпис на рік з урахуванням змін."] ||
+                          item["План на рік з урахуванням змін."] ||
+                          0
+                      );
+                      return sum + budget;
+                    }, 0);
+                  }
+
+                  return (
+                    <Col span={12} key={yearIndex}>
+                      <Analysis
+                        year={year}
+                        previousYearBudget={previousYearBudget}
+                        nextYearBudget={nextYearBudget}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
+            </TabPane>
+          );
+        })}
+      </Tabs>
     </div>
   );
 };

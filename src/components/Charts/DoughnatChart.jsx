@@ -1,37 +1,52 @@
 /* eslint-disable react/prop-types */
-import { Tabs } from "antd";
+import { Tabs, Typography } from "antd";
 import Chart from "chart.js/auto";
 
+const { Title } = Typography;
 const { TabPane } = Tabs;
+
 const DoughnatChartTabs = ({ data }) => {
   const renderDoughnatCharts = () => {
     const cityData = data.find((cityObj) => Object.keys(cityObj)[0] === "Київ");
     const yearData = cityData["Київ"];
 
-    return yearData.map((yearObj, index) => {
-      const year = Object.keys(yearObj)[0];
-      const chartData = yearObj[year];
-      const labels = Object.keys(chartData[0]);
+    return (
+      <Tabs>
+        {yearData.map((yearObj, index) => {
+          const year = Object.keys(yearObj)[0];
+          const chartData = yearObj[year];
+          const labels = Object.keys(chartData[0]);
 
-      return (
-        <TabPane tab={year} key={index}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              justifyContent: "start",
-              height: "100vh",
-              width: "100%",
-              marginLeft: "20%",
-            }}
-          >
-            <canvas
-              ref={(ref) => createDoughnatChart(ref, chartData, labels)}
-            />
-          </div>
-        </TabPane>
-      );
-    });
+          return (
+            <TabPane tab={year} key={index}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Title level={2}>
+                  Виконано у % до річного уточнення у місті Києві
+                </Title>
+                <div
+                  style={{
+                    display: "flex",
+                    height: "100vh",
+                    width: "100%",
+                    marginLeft: "40%",
+                  }}
+                >
+                  <canvas
+                    ref={(ref) => createDoughnatChart(ref, chartData, labels)}
+                  />
+                </div>
+              </div>
+            </TabPane>
+          );
+        })}
+      </Tabs>
+    );
   };
 
   const createDoughnatChart = (ref, chartData, labels) => {
@@ -39,8 +54,8 @@ const DoughnatChartTabs = ({ data }) => {
       const ctx = ref.getContext("2d");
 
       const labelsData = chartData.map((item) => item[labels[0]]);
-      const deviationData = chartData.map((item) =>
-        ((item[labels[1]] / item[labels[2]]) * 100).toFixed(2)
+      const percentageData = chartData.map((item) =>
+        parseFloat(item[labels[3]])
       );
 
       const chartConfig = {
@@ -49,7 +64,7 @@ const DoughnatChartTabs = ({ data }) => {
           labels: labelsData,
           datasets: [
             {
-              data: deviationData,
+              data: percentageData,
               backgroundColor: [
                 "rgba(255, 99, 132, 0.5)",
                 "rgba(54, 162, 235, 0.5)",
@@ -72,6 +87,10 @@ const DoughnatChartTabs = ({ data }) => {
           plugins: {
             legend: {
               position: "right",
+              align: "center",
+              labels: {
+                boxWidth: 12,
+              },
             },
           },
         },
@@ -80,7 +99,8 @@ const DoughnatChartTabs = ({ data }) => {
       new Chart(ctx, chartConfig);
     }
   };
-  return <Tabs>{renderDoughnatCharts()}</Tabs>;
+
+  return <div>{renderDoughnatCharts()}</div>;
 };
 
 export default DoughnatChartTabs;

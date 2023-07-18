@@ -41,7 +41,7 @@ const App = () => {
                 path="/PracticeProject/charts/dougnatIncome"
                 element={<DoughnatChart data={jsonData} />}
               />
-              <Route path="/PracticeProject/analysis" element={<EX />} />
+              <Route path="/PracticeProject/analysis" element={<EX data={jsonData}/>} />
               <Route path="/PracticeProject/reports" element={<Reports data={jsonData} />} />
             </Routes>
           </Content>
