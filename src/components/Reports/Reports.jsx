@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Table, Tabs } from "antd";
-
 const { TabPane } = Tabs;
 
 const Reports = ({ data }) => {
@@ -25,11 +24,8 @@ const Reports = ({ data }) => {
     return yearData.map((yearObj) => {
       const year = Object.keys(yearObj)[0];
       const tableData = yearObj[year];
-
-      // Extract the keys from the first object in the table data
       const keys = Object.keys(tableData[0]);
 
-      // Generate the columns based on the keys
       const columns = keys.map((key) => ({
         title: key,
         dataIndex: key,
